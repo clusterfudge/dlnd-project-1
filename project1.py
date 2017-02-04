@@ -3,7 +3,7 @@ import numpy as np
 
 def sigmoid(x):
     """
-    Calculate sigmoid
+    Calculate sigmoid, grapped from previous lessons
     """
     return 1 / (1 + np.exp(-x))
 
@@ -39,20 +39,20 @@ class NeuralNetwork:
         hidden_outputs = self.activation_function(hidden_inputs)
 
         # TODO: Output layer
-        final_inputs = np.dot(self.weights_hidden_to_output, hidden_outputs)
-        final_outputs = final_inputs
+        final_inputs = np.dot(self.weights_hidden_to_output, hidden_outputs)  # signals into final output layer
+        final_outputs = final_inputs # output activation layer == f(x) = x
 
         #### Implement the backward pass here ####
         ### Backward pass ###
 
         # TODO: Output error
+        # derivative of x == 1, so error for gradient descent is just difference
         output_errors = targets - final_outputs
-        # Output layer error is the difference between desired target and actual output.
         # TODO: Backpropagated error
         # errors propagated to the hidden layer
         hidden_errors = np.dot(self.weights_hidden_to_output.T, output_errors)
         # hidden layer gradients
-        hidden_grad = hidden_outputs * (1 - hidden_outputs)
+        hidden_grad = hidden_outputs * (1 - hidden_outputs) # d(sigmoid(x))/dx
 
         # TODO: Update the weights
         # update hidden-to-output weights with gradient descent step
@@ -70,7 +70,7 @@ class NeuralNetwork:
         hidden_outputs = self.activation_function(hidden_inputs)
 
         # TODO: Output layer
-        final_inputs = np.dot(self.weights_hidden_to_output, hidden_outputs)
+        final_inputs = np.dot(self.weights_hidden_to_output, hidden_outputs)  # signals into final output layer
         final_outputs = final_inputs
 
         return final_outputs
