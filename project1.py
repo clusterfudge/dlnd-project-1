@@ -52,13 +52,13 @@ class NeuralNetwork:
         # errors propagated to the hidden layer
         hidden_errors = np.dot(self.weights_hidden_to_output.T, output_errors)
         # hidden layer gradients
-        hidden_grad = hidden_outputs * (1 - hidden_outputs) # d(sigmoid(x))/dx
+        hidden_grad = hidden_errors * hidden_outputs * (1 - hidden_outputs) # d(sigmoid(x))/dx
 
         # TODO: Update the weights
         # update hidden-to-output weights with gradient descent step
         self.weights_hidden_to_output += self.learning_rate * output_errors * hidden_outputs.T
         # update input-to-hidden weights with gradient descent step
-        self.weights_input_to_hidden += self.learning_rate * np.dot((hidden_errors * hidden_grad), inputs.T)
+        self.weights_input_to_hidden += self.learning_rate * np.dot(hidden_grad, inputs.T)
 
     def run(self, inputs_list):
         # Run a forward pass through the network
